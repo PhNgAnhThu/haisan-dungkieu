@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thanh toán - Dũng Kiều</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Lora:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>.font-serif-viet { font-family: 'Lora', serif; }</style>
+</head>
+<body class="font-[Roboto] bg-[#fdfbf7] text-gray-800 flex flex-col min-h-screen">
+
+    <!-- HEADER ĐƠN GIẢN -->
+    <header class="bg-white shadow py-4 text-center">
+        <h1 class="font-['Pinyon_Script'] text-4xl text-[#5bb6d0]">Dũng Kiều</h1>
+        <p class="text-xs text-gray-500 uppercase tracking-widest">Thanh toán an toàn</p>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-10 w-full flex-grow">
+        
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
+            
+            <!-- CỘT TRÁI: MÃ QR -->
+            <div class="bg-[#5bb6d0] p-8 flex flex-col items-center justify-center text-white text-center">
+                <h2 class="font-bold text-xl mb-4">Quét mã để thanh toán</h2>
+                
+                <div class="bg-white p-2 rounded-xl shadow-lg mb-4">
+                    <!-- Ảnh QR sẽ được tạo tự động -->
+                    <img id="qrImage" src="" class="w-64 h-64 object-contain">
+                </div>
+
+                <p class="text-sm opacity-90">Sử dụng App ngân hàng hoặc Ví điện tử</p>
+                <div class="mt-4 font-bold text-2xl" id="displayTotal">0đ</div>
+            </div>
+
+            <!-- CỘT PHẢI: THÔNG TIN CHUYỂN KHOẢN -->
+            <div class="p-8 flex flex-col justify-center">
+                <h3 class="font-serif-viet text-2xl font-bold mb-6 text-gray-800">Thông tin chuyển khoản</h3>
+                
+                <div class="space-y-4 text-sm">
+                    <div>
+                        <p class="text-gray-500">Ngân hàng:</p>
+                        <!-- 👇👇 SỬA TÊN NGÂN HÀNG CỦA BÀ Ở ĐÂY -->
+                        <p class="font-bold text-lg">VPBANK (Ngân hàng Thịnh Vượng)</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-500">Số tài khoản:</p>
+                        <div class="flex items-center gap-2">
+                            <!-- 👇👇 SỬA SỐ TÀI KHOẢN CỦA BÀ Ở ĐÂY -->
+                            <p class="font-bold text-lg" id="bankNumber">0792280515</p>
+                            <button onclick="copyText('bankNumber')" class="text-[#5bb6d0] hover:text-black"><i class="fas fa-copy"></i></button>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-gray-500">Chủ tài khoản:</p>
+                        <!-- 👇👇 SỬA TÊN BÀ Ở ĐÂY -->
+                        <p class="font-bold text-lg uppercase">PHẠM NGUYỄN ANH THƯ</p>
+                    </div>
+                    <div class="bg-yellow-50 p-3 rounded border border-yellow-200">
+                        <p class="text-gray-500 text-xs">Nội dung chuyển khoản:</p>
+                        <!-- Để trống hoặc để chữ đang tải, lát code nó tự điền vào -->
+                        <p class="font-bold text-red-600" id="transferContent">Đang tạo nội dung...</p>
+                    </div>
+
+                <div class="mt-8 space-y-3">
+                    <button id="btnConfirm" class="w-full bg-black text-white py-4 rounded-full font-bold uppercase tracking-wider hover:bg-[#5bb6d0] transition shadow-lg">
+                        <i class="fas fa-check-circle mr-2"></i> Tôi đã chuyển khoản xong
+                    </button>
+                    <a href="cart.html" class="block w-full text-center py-3 text-gray-400 hover:text-red-500 font-bold text-sm">
+                        Quay lại giỏ hàng
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER GIỮ NGUYÊN -->
+    <!-- (Bà copy cái footer mới có địa chỉ 51 Kim Đồng dán vô đây nha) -->
+
+    <script type="module">
+        import * as API from "./api.js";
+        import * as Cart from "./cart.js";
+
+        // 1. LẤY DỮ LIỆU
+        const cart = Cart.getCart();
+        const totalAmount = Cart.getCartTotal();
+        const custInfo = JSON.parse(localStorage.getItem("dk_customer_info"));
+
+        // Nếu không có thông tin khách -> Đá về trang chủ
+        if (!custInfo) {
+            window.location.href = "index.html";
+        }
+
+        // 2. HIỂN THỊ TỔNG TIỀN
+        document.getElementById("displayTotal").innerText = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalAmount);
+        
+        // 3. TẠO NỘI DUNG CHUYỂN KHOẢN (Dùng SĐT cho ngắn gọn)
+        // Kết quả sẽ là: DK 0909123456
+        const content = `DK ${custInfo.phone}`; 
+        
+        // Gán nội dung vào cái thẻ HTML lúc nãy
+        document.getElementById("transferContent").innerText = content;
+
+        // 4. TẠO MÃ QR (MB Bank)
+        // Nhớ thay số tài khoản của bà vào chỗ 0933756772 nha
+        const BANK_ID = "VPBank"; 
+        const ACCOUNT_NO = "0792280515"; 
+        
+        // Tạo link QR
+        const qrUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-compact.png?amount=${totalAmount}&addInfo=${content}`;
+        document.getElementById("qrImage").src = qrUrl;
+
+        // ... (Phần xử lý nút bấm bên dưới giữ nguyên) ...
+        // 4. XỬ LÝ KHI BẤM "TÔI ĐÃ CHUYỂN KHOẢN"
+        document.getElementById("btnConfirm").addEventListener("click", async () => {
+            const btn = document.getElementById("btnConfirm");
+            btn.innerText = "Đang tạo đơn hàng...";
+            btn.disabled = true;
+
+            try {
+                // Tạo đơn hàng lưu lên Firebase
+                const orderData = {
+                    userId: custInfo.uid,
+                    userEmail: custInfo.email,
+                    user_info: {
+                        name: custInfo.name,
+                        phone: custInfo.phone,
+                        address: custInfo.address
+                    },
+                    items: cart,
+                    total_price: totalAmount,
+                    status: "pending", // Chờ bà check tiền
+                    payment_method: "banking", // Ghi chú là chuyển khoản
+                    created_at_web: new Date().toISOString()
+                };
+
+                await API.createOrder(orderData);
+
+                // Xóa giỏ hàng & bộ nhớ tạm
+                localStorage.removeItem("dk_cart");
+                localStorage.removeItem("dk_customer_info");
+
+                alert("🎉 Đặt hàng thành công! Shop sẽ gọi xác nhận sớm nhất.");
+                window.location.href = "order-history.html";
+
+            } catch (error) {
+                console.error(error);
+                alert("Lỗi tạo đơn: " + error.message);
+                btn.disabled = false;
+                btn.innerText = "Thử lại";
+            }
+        });
+
+        // Hàm copy số tài khoản
+        window.copyText = (id) => {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text);
+            alert("Đã copy số tài khoản!");
+        }
+    </script>
+</body>
+</html>

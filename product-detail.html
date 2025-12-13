@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Chi tiết sản phẩm </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .font-script { font-family: 'Pinyon Script', cursive; }
+        .font-serif-viet { font-family: 'Lora', serif; }
+        .font-body { font-family: 'Roboto', sans-serif; }
+    </style>
+</head>
+<body class="font-body bg-[#fdfbf7] text-gray-800 flex flex-col min-h-screen">
+
+    <!-- BANNER (GIỐNG HÌNH CANVA) -->
+    <header class="relative w-full h-[300px] bg-cover bg-center flex flex-col justify-center items-center text-center text-white" 
+            style="background-image: url('https://i.postimg.cc/4NbMH428/ocean.jpg');">
+        <div class="absolute inset-0 bg-blue-900/40"></div>
+        <div class="relative z-10">
+            <h1 class="text-6xl md:text-8xl font-script mb-2">Dũng Kiều</h1>
+            <p class="text-lg uppercase tracking-[0.2em] font-bold border-t border-b border-white/50 py-2 inline-block">Cửa hàng hải sản khô và 1 nắng</p>
+            <h3 class="text-3xl md:text-3xl font-serif-viet font-bold mt-6 uppercase drop-shadow-lg">Danh mục sản phẩm</h3>
+        </div>
+    </header>
+
+    <!-- MENU -->
+    <nav class="bg-[#5bb6d0] text-white sticky top-0 z-50 shadow-md">
+        <div class="w-full px-6 md:px-12 py-3">
+            <ul class="flex flex-wrap justify-between items-center text-xl md:text-2xl font-script w-full">
+                <span class="font-script text-3xl text-gray-100">Dũng Kiều</span>
+                <li><a href="index.html" class="hover:text-gray-100 transition">Trang chủ</a></li>
+                <li><a href="products.html" class="font-bold border-b-2 border-white transition">Sản phẩm</a></li>
+                <li><a href="cart.html" class="hover:text-gray-100 transition">Giỏ hàng</a></li>
+                <li><a href="order-history.html" class="hover:text-gray-100 transition">Lịch sử đơn</a></li>
+                <li id="userLink"><a href="login.html" class="hover:text-gray-100 transition">Đăng nhập/Đăng ký</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- NỘI DUNG CHI TIẾT -->
+    <main class="max-w-6xl mx-auto px-4 py-10">
+        
+        <!-- Nút quay lại -->
+        <button onclick="history.back()" class="mb-6 flex items-center text-gray-500 hover:text-black transition">
+            <i class="fas fa-arrow-left mr-2"></i> Quay lại
+        </button>
+
+        <div id="detailContainer" class="grid grid-cols-1 md:grid-cols-2 gap-12 bg-white p-8 rounded-3xl shadow-sm">
+            <div class="text-center">Đang tải chi tiết...</div>
+        </div>
+
+    </main>
+
+    <script type="module">
+        import * as API from "./api.js";
+        import * as Cart from "./cart.js";
+        window.Cart = Cart;
+ // --- 1. XỬ LÝ ĐĂNG NHẬP / ĐỔI MENU ---
+    API.checkLoginStatus((user) => {
+        const userLink = document.getElementById("userLink");
+        if (!userLink) return;
+
+        if (user) {
+            // Lấy tên từ email (bỏ phần đuôi @...)
+            const name = user.email.split('@')[0];
+
+          userLink.innerHTML = `
+                <div class="relative group cursor-pointer h-full flex items-center">
+                    <span class="font-bold border-b border-transparent group-hover:border-white pb-1">
+                        Chào, ${name}
+                    </span>
+                    
+                    <!-- MENU THẢ XUỐNG -->
+                    <!-- Sửa: Thêm pt-4 để tạo cầu nối vô hình, bọc cái hộp trắng vào trong -->
+                    <div class="absolute right-0 top-full pt-4 w-56 hidden group-hover:block z-50">
+                        
+                        <!-- Cái hộp trắng thực sự nằm ở đây -->
+                        <div class="bg-white text-black shadow-xl rounded-lg overflow-hidden border border-gray-100">
+                            <!-- Mũi tên nhỏ chỉ lên trên (Trang trí cho đẹp) -->
+                            <div class="absolute -top-2 right-4 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-100"></div>
+
+                            <a href="order-history.html" class="block px-4 py-3 hover:bg-gray-50 border-b flex items-center gap-2">
+                                <i class="fas fa-box text-[#5bb6d0]"></i> Đơn hàng của tui
+                            </a>
+                            <button onclick="window.handleLogout()" class="block w-full text-left px-4 py-3 hover:bg-red-50 text-red-600 font-bold flex items-center gap-2">
+                                <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Hàm đăng xuất
+            window.handleLogout = async () => {
+                await API.logout();
+                window.location.reload();
+            }
+        } else {
+            // Chưa đăng nhập
+            userLink.innerHTML = `<a href="login.html" class="hover:text-gray-100 transition">Đăng nhập/Đăng ký</a>`;
+        }
+    });
+
+        // Lấy ID từ URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+
+        // --- HÀM 1: Đổi ảnh khi bấm vào thumbnail ---
+        window.changeMainImage = function(src) {
+            const mainImg = document.getElementById('mainImageDisplay');
+            if(mainImg) {
+                mainImg.src = src;
+            }
+        }
+
+        // --- HÀM 2: Tải chi tiết sản phẩm ---
+        async function loadProductDetail() {
+            const container = document.getElementById("detailContainer");
+            try {
+                // Gọi API lấy dữ liệu
+                const p = await API.getProductById(productId);
+                const price = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(p.price);
+
+                // 1. TẠO ALBUM ẢNH (Gom ảnh chính và ảnh phụ lại)
+                // Lọc bỏ những cái nào rỗng hoặc undefined
+                const listImages = [p.image, p.image1, p.image2, p.image3].filter(img => img); 
+                
+                // Tạo HTML cho hàng ảnh nhỏ
+                let thumbnailsHtml = '';
+                listImages.forEach(img => {
+                    thumbnailsHtml += `
+                        <div onclick="window.changeMainImage('${img}')" 
+                             class="w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden border border-gray-200 cursor-pointer hover:border-[#5bb6d0] hover:border-2 transition">
+                            <img src="${img}" class="w-full h-full object-cover">
+                        </div>
+                    `;
+                });
+
+                // 2. HIỂN THỊ RA MÀN HÌNH
+                container.innerHTML = `
+                    <!-- Cột Trái: Album Ảnh -->
+                    <div class="w-full">
+                        <!-- Ảnh Lớn -->
+                        <div class="w-full h-[400px] md:h-[500px] overflow-hidden rounded-2xl shadow-lg border border-gray-100 mb-4 bg-white flex items-center justify-center">
+                            <img id="mainImageDisplay" src="${p.image}" class="w-full h-full object-contain" alt="${p.name}">
+                        </div>
+                        
+                        <!-- Hàng Ảnh Nhỏ -->
+                        <div class="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+                            ${thumbnailsHtml}
+                        </div>
+                    </div>
+
+                    <!-- Cột Phải: Thông tin -->
+                    <div class="flex flex-col justify-center">
+                        <span class="text-[#5bb6d0] font-bold uppercase tracking-wider mb-2 text-sm">Hải sản Dũng Kiều</span>
+                        <h1 class="text-4xl md:text-5xl font-serif-viet font-bold text-gray-900 mb-4">${p.name}</h1>
+                        <p class="text-3xl font-bold text-red-600 mb-6">${price} <span class="text-gray-400 text-lg font-normal">/ ${p.weight || '1kg'}</span></p>
+                        
+                        <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 mb-8">
+                            <h3 class="font-bold text-gray-800 mb-2">Mô tả sản phẩm:</h3>
+                            <p class="text-gray-600 leading-relaxed text-lg">${p.description || 'Sản phẩm tươi ngon, phơi 1 nắng chuẩn vị nhà làm. Không chất bảo quản.'}</p>
+                        </div>
+
+                        <!-- Nút mua hàng -->
+                        <div class="mt-auto">
+                            <button onclick='window.Cart.addToCart(${JSON.stringify(p).replace(/"/g, '&quot;')})' 
+                                class="w-full bg-black text-white py-4 rounded-full font-bold uppercase tracking-widest hover:bg-[#5bb6d0] transition shadow-lg transform hover:scale-105 flex items-center justify-center gap-3">
+                                <i class="fas fa-shopping-bag"></i> Thêm vào giỏ hàng
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                container.innerHTML = "<p class='text-center text-red-500'>Không tìm thấy sản phẩm này hoặc lỗi kết nối.</p>";
+                console.error(error);
+            }
+        }
+
+        // Chạy hàm
+        if(productId) {
+            loadProductDetail();
+        } else {
+            document.getElementById("detailContainer").innerHTML = "<p class='text-center'>Đường dẫn sai.</p>";
+        }
+    </script>
+</body>
+</html>

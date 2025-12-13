@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa hàng - Dũng Kiều</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .font-script { font-family: 'Pinyon Script', cursive; }
+        .font-serif-viet { font-family: 'Lora', serif; }
+        .font-body { font-family: 'Roboto', sans-serif; }
+    </style>
+</head>
+<body class="font-body bg-[#fdfbf7] text-gray-800 flex flex-col min-h-screen">
+
+    <!-- BANNER (GIỐNG HÌNH CANVA) -->
+    <header class="relative w-full h-[300px] bg-cover bg-center flex flex-col justify-center items-center text-center text-white" 
+            style="background-image: url('https://i.postimg.cc/4NbMH428/ocean.jpg');">
+        <div class="absolute inset-0 bg-blue-900/40"></div>
+        <div class="relative z-10">
+            <p class="text-lg uppercase tracking-[0.2em]">Chào mừng bạn đến với</p>
+            <h1 class="text-6xl md:text-8xl font-script mb-2">Dũng Kiều</h1>
+            <p class="text-lg uppercase tracking-[0.2em] font-bold border-t border-b border-white/50 py-2 inline-block">Cửa hàng hải sản khô và 1 nắng</p>
+        </div>
+    </header>
+    <!-- NAVIGATION BAR (MENU XANH) -->
+     <nav class="bg-[#5bb6d0] text-white sticky top-0 z-50 shadow-md">
+        <div class="w-full px-6 md:px-12 py-3">
+            <ul class="flex flex-wrap justify-between items-center text-xl md:text-2xl font-script w-full">
+                <li><a href="index.html" class="font-bold border-b-2 border-white transition">Trang chủ</a></li>
+                <li><a href="products.html" class="hover:text-gray-100 transition">Sản phẩm</a></li>
+                <li><a href="cart.html" class="hover:text-gray-100 transition">Giỏ hàng</a></li>
+                <li><a href="order-history.html" class="hover:text-gray-100 transition">Lịch sử đơn</a></li>
+                <li id="userLink"><a href="login.html" class="hover:text-gray-100 transition">Đăng nhập/Đăng ký</a></li>
+            </ul>
+        </div>
+    </nav>
+
+      <style>
+        .font-serif-viet { font-family: 'Lora', serif; }
+    </style>
+
+    <!-- INTRO SECTION (MẪU CŨ - ĐÃ SỬA LỖI FONT) -->
+    <section class="max-w-7xl mx-auto px-6 py-16 md:py-24 bg-[#fdfbf7]">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="relative h-[400px] md:h-[500px]">
+                <!-- Ảnh 1 (Bánh/Đồ ăn - thay bằng ảnh của bạn) -->
+                                <img src="https://i.postimg.cc/50PcQCkg/du_soc.jpg" 
+
+                     class="absolute top-0 left-0 w-3/5 h-3/4 object-cover rounded-2xl shadow-xl z-10 transform -rotate-3">
+                
+                <!-- Ảnh 2 (Món ăn khác - thay bằng ảnh của bạn) -->
+                                <img src="https://i.postimg.cc/85cPKWG5/ca-hanh-2.jpg" 
+
+                     class="absolute bottom-0 right-0 w-3/5 h-3/4 object-cover rounded-2xl shadow-xl z-20 border-4 border-[#fdfbf7] transform rotate-3">
+            </div>
+        
+
+            <!-- Cột Phải: Nội dung Text -->
+            <div class="text-left relative pl-4 md:pl-10">
+                
+                <!-- Tiêu đề: Đã đổi sang font Lora để hết lỗi dấu -->
+                <h2 class="text-4xl md:text-5xl font-serif-viet font-bold mb-6 text-gray-900 tracking-wider">
+                    CÁ 1 NẮNG
+                </h2>
+
+                <p class="text-gray-600 leading-relaxed mb-4 text-justify font-body text-lg">
+                    Nhà mình luôn chọn cá biển tươi vừa được đưa vào bờ, sau đó làm sạch từng con và phơi đúng một nắng để cá giữ được độ mềm thơm tự nhiên. Khi chế biến, cá vẫn giữ vị ngọt đặc trưng của biển và không hề bị khô bã.
+                </p>
+                <p class="text-gray-600 leading-relaxed mb-8 text-justify font-body text-lg">
+                    Toàn bộ quy trình đều làm thủ công, không phụ gia, không tẩm ướp, và được bảo quản sạch sẽ. Nhờ vậy, cá một nắng của nhà mình luôn đạt chất lượng ổn định, ăn yên tâm và phù hợp cho cả gia đình.
+                </p>
+                
+                <a href="products.html?cat=ca-1-nang" class="inline-block bg-black text-white px-10 py-3 rounded-full font-bold uppercase tracking-wider hover:bg-gray-800 transition transform hover:scale-105 shadow-lg">
+                    Mua ngay
+                </a>
+            </div>
+        </div>
+    </section>
+    <section class="max-w-7xl mx-auto px-6 py-16 md:py-24 bg-[#fdfbf7]">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+           
+            <!-- Cột Trái: Hình ảnh Decor -->
+            <div class="relative h-[400px] md:h-[500px]">
+                <!-- Ảnh 1 (Bánh/Đồ ăn - thay bằng ảnh của bạn) -->
+                <img src="https://i.postimg.cc/9MzDqyRS/ca_chi_vang.jpg" 
+                     class="absolute top-0 left-0 w-3/5 h-3/4 object-cover rounded-2xl shadow-xl z-10 transform -rotate-3">
+                
+                <!-- Ảnh 2 (Món ăn khác - thay bằng ảnh của bạn) -->
+                <img src="https://i.postimg.cc/9MzDqyRS/ca_chi_vang.jpg" 
+                     class="absolute bottom-0 right-0 w-3/5 h-3/4 object-cover rounded-2xl shadow-xl z-20 border-4 border-[#fdfbf7] transform rotate-3">
+            </div>
+
+             <!-- Cột Phải: Nội dung Text -->
+            <div class="text-left relative pl-4 md:pl-10">
+                <!-- Hình lá cây trang trí (Optional) -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Leaf_1_web.svg/1200px-Leaf_1_web.svg.png" class="absolute -top-20 -right-10 w-32 opacity-20 pointer-events-none" alt="">
+
+                <h2 class="text-4xl md:text-5xl font-serif-viet font-bold mb-6 text-gray-900 tracking-wider">
+                    CÁ KHÔ
+                </h2>
+                <p class="text-gray-600 leading-relaxed mb-4 text-justify">
+Mực một nắng của bên mình là loại mực tươi được xử lý nhanh để không mất độ ngọt. Mực chỉ phơi qua một nắng, đủ để săn mặt ngoài nhưng vẫn còn mềm bên trong, nên khi nướng hay áp chảo rất dậy mùi và ngọt thịt. Tất cả đều là hàng nhà làm, phơi sạch, không hóa chất. Nhờ vậy, món mực một nắng luôn có độ dày, vị biển rõ và chất lượng ổn định theo từng mẻ.                </p>
+                
+                
+                <a href="products.html?cat=ca-kho" class="inline-block bg-black text-white px-8 py-3 rounded-full font-bold uppercase tracking-wider hover:bg-gray-800 transition transform hover:scale-105 shadow-lg">
+                    Mua ngay
+                </a>
+            </div>
+        </div>
+    </section>
+    <section class="max-w-7xl mx-auto px-6 py-16 md:py-24 bg-[#fdfbf7]">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+           
+            <!-- Cột Trái: Hình ảnh Decor -->
+            <div class="relative h-[400px] md:h-[500px]">
+                <!-- Ảnh 1 (Bánh/Đồ ăn - thay bằng ảnh của bạn) -->
+                <img src="https://i.postimg.cc/NGpC6X7H/muc1nang1.jpg" 
+                     class="absolute top-0 left-0 w-3/5 h-3/4 object-cover rounded-2xl shadow-xl z-10 transform -rotate-3">
+                
+                <!-- Ảnh 2 (Món ăn khác - thay bằng ảnh của bạn) -->
+                <img src="https://i.postimg.cc/d0LVnrvS/muc1nang.jpg" 
+                     class="absolute bottom-0 right-0 w-3/5 h-3/4 object-cover rounded-2xl shadow-xl z-20 border-4 border-[#fdfbf7] transform rotate-3">
+            </div>
+
+             <!-- Cột Phải: Nội dung Text -->
+            <div class="text-left relative pl-4 md:pl-10">
+                <!-- Hình lá cây trang trí (Optional) -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Leaf_1_web.svg/1200px-Leaf_1_web.svg.png" class="absolute -top-20 -right-10 w-32 opacity-20 pointer-events-none" alt="">
+
+                <h2 class="text-4xl md:text-5xl font-serif-viet font-bold mb-6 text-gray-900 tracking-wider">
+                    MỰC 1 NẮNG
+                </h2>
+                <p class="text-gray-600 leading-relaxed mb-4 text-justify">
+Mực một nắng của bên mình là loại mực tươi được xử lý nhanh để không mất độ ngọt. Mực chỉ phơi qua một nắng, đủ để săn mặt ngoài nhưng vẫn còn mềm bên trong, nên khi nướng hay áp chảo rất dậy mùi và ngọt thịt. Tất cả đều là hàng nhà làm, phơi sạch, không hóa chất. Nhờ vậy, món mực một nắng luôn có độ dày, vị biển rõ và chất lượng ổn định theo từng mẻ.                </p>
+                
+                
+                <a href="products.html?cat=muc-1-nang" class="inline-block bg-black text-white px-8 py-3 rounded-full font-bold uppercase tracking-wider hover:bg-gray-800 transition transform hover:scale-105 shadow-lg">
+                    Mua ngay
+                </a>
+            </div>
+        </div>
+    </section>
+    <section class="max-w-7xl mx-auto px-6 py-16 md:py-24">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            
+            <!-- Cột Trái: Hình ảnh Decor -->
+            <div class="relative h-[400px] md:h-[500px]">
+                <!-- Ảnh 1 (Bánh/Đồ ăn - thay bằng ảnh của bạn) -->
+                <img src="https://i.postimg.cc/zGJwXzQX/muckho2.jpg" 
+                     class="absolute top-0 left-0 w-3/5 h-3/4 object-cover rounded-2xl shadow-xl z-10 transform -rotate-3">
+                
+                <!-- Ảnh 2 (Món ăn khác - thay bằng ảnh của bạn) -->
+                <img src="https://i.postimg.cc/3J1rTnwr/muc-kho-1.jpg" 
+                     class="absolute bottom-0 right-0 w-3/5 h-3/4 object-cover rounded-2xl shadow-xl z-20 border-4 border-[#fdfbf7] transform rotate-3">
+            </div>
+
+            <!-- Cột Phải: Nội dung Text -->
+            <div class="text-left relative">
+                <!-- Hình lá cây trang trí (Optional) -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Leaf_1_web.svg/1200px-Leaf_1_web.svg.png" class="absolute -top-20 -right-10 w-32 opacity-20 pointer-events-none" alt="">
+
+                <h2 class="text-4xl md:text-5xl font-serif-viet font-bold mb-6 text-gray-900 tracking-wider">
+                    MỰC KHÔ
+                </h2>
+                <p class="text-gray-600 leading-relaxed mb-4 text-justify">
+Mực khô của bên mình nổi bật ở cái vị ngọt đậm và thớ mực chắc, vì mực được lấy từ nguồn biển tươi rồi phơi tự nhiên từng nắng một. Khi nướng lên, mùi thơm lan rất rõ, xé ra vẫn thấy thịt dẻo và không bị bở. Toàn bộ quá trình phơi – sấy đều làm trong không gian sạch, không dùng chất tẩy hay chất bảo quản, nên hương vị mực giữ đúng kiểu mực biển “thật”, ăn vào nhận ra liền.                </p>
+                
+                
+                <a href="products.html?cat=muc-kho" class="inline-block bg-black text-white px-8 py-3 rounded-full font-bold uppercase tracking-wider hover:bg-gray-800 transition transform hover:scale-105 shadow-lg">
+                    Mua ngay
+                </a>
+            </div>
+        </div>
+    </section>
+    <section class="max-w-7xl mx-auto px-6 py-16 md:py-24">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            
+            <!-- Cột Trái: Hình ảnh Decor -->
+            <div class="relative h-[400px] md:h-[500px]">
+                <!-- Ảnh 1 (Bánh/Đồ ăn - thay bằng ảnh của bạn) -->
+                <img src="https://i.postimg.cc/MTL3121q/Tomkho.jpg" 
+                     class="absolute top-0 left-0 w-3/5 h-3/4 object-cover rounded-2xl shadow-xl z-10 transform -rotate-3">
+                
+                <!-- Ảnh 2 (Món ăn khác - thay bằng ảnh của bạn) -->
+                <img src="https://i.postimg.cc/MTL3121q/Tomkho.jpg" 
+                     class="absolute bottom-0 right-0 w-3/5 h-3/4 object-cover rounded-2xl shadow-xl z-20 border-4 border-[#fdfbf7] transform rotate-3">
+            </div>
+
+            <!-- Cột Phải: Nội dung Text -->
+            <div class="text-left relative">
+                <!-- Hình lá cây trang trí (Optional) -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Leaf_1_web.svg/1200px-Leaf_1_web.svg.png" class="absolute -top-20 -right-10 w-32 opacity-20 pointer-events-none" alt="">
+
+                <h2 class="text-4xl md:text-5xl font-serif-viet font-bold mb-6 text-gray-900 tracking-wider">
+                    TÔM KHÔ
+                </h2>
+                <p class="text-gray-600 leading-relaxed mb-4 text-justify">
+Tôm khô nhà mình làm từ những con tôm biển vừa được chọn buổi sáng, rửa sạch rồi luộc nhẹ để giữ màu đỏ tự nhiên. Tôm sau đó được sấy đều tay, không thêm muối hay phụ gia, nên khi bóc ra ăn thấy vị ngọt rất thật. Tôm để được lâu nhưng vẫn thơm, không hôi dầu nhờ cách bảo quản gọn gàng, sạch sẽ. Loại tôm này dùng nấu canh, làm gỏi hay kho đều tiện và ngon.                </p>
+                
+                
+                <a href="products.html?cat=tom-kho" class="inline-block bg-black text-white px-8 py-3 rounded-full font-bold uppercase tracking-wider hover:bg-gray-800 transition transform hover:scale-105 shadow-lg">
+                    Mua ngay
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SẢN PHẨM TỪ FIREBASE -->
+    <section class="bg-white py-16">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-serif text-center font-bold mb-12">Sản phẩm nổi bật</h2>
+            
+            <!-- Container chứa sản phẩm load từ JS -->
+            <div id="featuredProducts" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+                <!-- Loading state -->
+                <div class="col-span-4 text-center text-gray-400">Đang tải sản phẩm...</div>
+            </div>
+        </div>
+    </section>
+
+   <!-- FOOTER MỚI (CÓ ĐỊA CHỈ & SDT) -->
+    <footer class="relative w-full text-white bg-cover bg-center bg-no-repeat mt-auto" 
+            style="background-image: url('https://i.postimg.cc/rwV8h3Dw/The-Grand-(1).png');">
+        
+        <!-- Lớp phủ tối màu -->
+        <div class="absolute inset-0 bg-[#0f172a]/80"></div>
+
+        <div class="relative z-10 w-full px-6 md:px-12 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                
+                <!-- CỘT 1: THƯƠNG HIỆU -->
+                <div class="text-center md:text-left space-y-2">
+                    <h2 class="font-serif-viet text-3xl font-bold text-[#5bb6d0]">Dũng Kiều</h2>
+                    <p class="text-sm opacity-60 font-body">Hải sản khô & 1 nắng chất lượng cao.</p>
+                    <p class="text-xs opacity-40">© 2024 All rights reserved.</p>
+                    
+                    <!-- Link bí mật vào Admin (Tui giấu ở đây nè) -->
+                    <a href="admin.html" class="text-[10px] opacity-10 hover:opacity-100 hover:text-yellow-400 block pt-2">
+                        Admin Login
+                    </a>
+                </div>
+
+                <!-- CỘT 2: LIÊN HỆ (ĐỊA CHỈ & SDT) -->
+                <div class="text-center border-t border-b border-white/10 py-6 md:py-0 md:border-0">
+                    <h3 class="font-bold text-lg mb-4 uppercase tracking-wider text-[#5bb6d0]">Liên hệ</h3>
+                    <!-- Địa chỉ -->
+                    <div class="flex flex-row items-center justify-center gap-2 mb-4">
+    <i class="fas fa-map-marker-alt text-xl text-[#5bb6d0]"></i>
+    <p class="font-body text-sm md:text-base whitespace-nowrap">
+        51 Kim Đồng, phường Rạch Dừa, TP HCM (TP Vũng Tàu cũ)
+    </p>
+</div>
+
+                    <!-- Số điện thoại -->
+<div class="flex flex-row items-center justify-center gap-2 mb-4">
+                        <i class="fas fa-phone-volume text-xl mb-1"></i>
+                        <a href="tel:0933756772" class="font-bold text-xl md:text-2xl hover:text-[#5bb6d0] transition">
+                            0933 756 772
+                        </a>
+                    </div>
+                </div>
+
+                <!-- CỘT 3: MẠNG XÃ HỘI & LINK -->
+                <div class="text-center md:text-right space-y-4">
+                    <div class="flex justify-center md:justify-end gap-4">
+                        <!-- Facebook -->
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center hover:bg-white hover:text-[#1877F2] transition duration-300 transform hover:scale-110">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <!-- Zalo -->
+                        <a href="https://zalo.me/0933756772" target="_blank" class="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center hover:bg-white hover:text-[#0068FF] transition duration-300 transform hover:scale-110">
+                            <i class="fas fa-comment-dots"></i>
+                        </a>
+                        <!-- Tiktok/Youtube -->
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center hover:bg-white hover:text-black transition duration-300 transform hover:scale-110">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Link phụ -->
+                    <div class="flex flex-col md:flex-row justify-end gap-3 text-xs opacity-60">
+                        <a href="#" class="hover:text-white hover:underline">Chính sách bảo mật</a>
+                        <span class="hidden md:inline">|</span>
+                        <a href="#" class="hover:text-white hover:underline">Điều khoản sử dụng</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <!-- CHÚ Ý: Đổi thành type="module" -->
+<!-- LOGIC CHẠY TRANG CHỦ -->
+<script type="module">
+    import * as API from "./api.js";
+    import { collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { db } from "./firebase.js";
+
+    // --- 1. XỬ LÝ ĐĂNG NHẬP / ĐỔI MENU ---
+    API.checkLoginStatus((user) => {
+        const userLink = document.getElementById("userLink");
+        if (!userLink) return;
+
+        if (user) {
+            // Lấy tên từ email (bỏ phần đuôi @...)
+            const name = user.email.split('@')[0];
+
+         userLink.innerHTML = `
+                <div class="relative group cursor-pointer h-full flex items-center">
+                    <span class="font-bold border-b border-transparent group-hover:border-white pb-1">
+                        Chào, ${name}
+                    </span>
+                    
+                    <!-- MENU THẢ XUỐNG -->
+                    <!-- Sửa: Thêm pt-4 để tạo cầu nối vô hình, bọc cái hộp trắng vào trong -->
+                    <div class="absolute right-0 top-full pt-4 w-56 hidden group-hover:block z-50">
+                        
+                        <!-- Cái hộp trắng thực sự nằm ở đây -->
+                        <div class="bg-white text-black shadow-xl rounded-lg overflow-hidden border border-gray-100">
+                            <!-- Mũi tên nhỏ chỉ lên trên (Trang trí cho đẹp) -->
+                            <div class="absolute -top-2 right-4 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-100"></div>
+
+                            <a href="order-history.html" class="block px-4 py-3 hover:bg-gray-50 border-b flex items-center gap-2">
+                                <i class="fas fa-box text-[#5bb6d0]"></i> Đơn hàng của tui
+                            </a>
+                            <button onclick="window.handleLogout()" class="block w-full text-left px-4 py-3 hover:bg-red-50 text-red-600 font-bold flex items-center gap-2">
+                                <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Hàm đăng xuất
+            window.handleLogout = async () => {
+                await API.logout();
+                window.location.reload();
+            }
+        } else {
+            // Chưa đăng nhập
+            userLink.innerHTML = `<a href="login.html" class="hover:text-gray-100 transition">Đăng nhập/Đăng ký</a>`;
+        }
+    });
+
+    // --- 2. LOAD SẢN PHẨM NỔI BẬT (Ở cuối trang) ---
+    async function loadFeaturedProducts() {
+        const container = document.getElementById("featuredProducts");
+        if (!container) return;
+
+        try {
+            // Lấy tất cả sản phẩm
+            const products = await API.getAllProducts();
+            
+            // Lấy 4 sản phẩm đầu tiên làm nổi bật (hoặc bà có thể random)
+            const featured = products.slice(0, 4); 
+
+            container.innerHTML = "";
+            featured.forEach(p => {
+                const price = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(p.price);
+                // Stringify để truyền vào nút bấm
+                const pString = JSON.stringify(p).replace(/"/g, '&quot;');
+
+                container.innerHTML += `
+                <div class="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-2xl transition duration-300 group flex flex-col h-full border border-gray-100">
+                    <div class="h-64 w-full overflow-hidden relative">
+                        <a href="product-detail.html?id=${p.id}">
+                            <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="${p.name}">
+                        </a>
+                        ${p.quantity <= 0 ? '<span class="absolute top-2 right-2 bg-gray-500 text-white text-xs font-bold px-2 py-1 rounded">HẾT HÀNG</span>' : ''}
+                    </div>
+                    <div class="p-4 text-center flex flex-col flex-grow">
+                        <a href="product-detail.html?id=${p.id}" class="font-serif-viet font-bold text-xl text-gray-800 line-clamp-1 hover:text-[#5bb6d0] transition">${p.name}</a>
+                        
+                        <p class="text-red-600 font-bold mt-2 text-lg mb-4">${price}</p>
+                        
+                        <div class="mt-auto">
+                            <button onclick='import("./cart.js").then(m => m.addToCart(${pString}))' 
+                                class="bg-black text-white px-6 py-2 rounded-full text-sm hover:bg-[#5bb6d0] transition uppercase font-bold tracking-wider w-full">
+                                Thêm vào giỏ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                `;
+            });
+        } catch (error) {
+            console.error(error);
+            container.innerHTML = "<p class='col-span-4 text-center'>Đang cập nhật sản phẩm...</p>";
+        }
+    }
+
+    // --- 3. LOAD BANNER TỰ ĐỘNG (Nếu bà có lưu trong Firebase) ---
+    async function loadBanner() {
+        try {
+            const docRef = doc(db, "images", "trang-chu");
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                if(data.image1) {
+                    document.querySelector("header").style.backgroundImage = `url('${data.image1}')`;
+                }
+            }
+        } catch (e) { console.log("Dùng banner mặc định"); }
+    }
+
+    // Chạy các hàm
+    loadFeaturedProducts();
+    loadBanner();
+</script>
+</body>
+</html>

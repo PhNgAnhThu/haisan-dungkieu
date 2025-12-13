@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa hàng - Dũng Kiều</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .font-script { font-family: 'Pinyon Script', cursive; }
+        .font-serif-viet { font-family: 'Lora', serif; }
+        .font-body { font-family: 'Roboto', sans-serif; }
+    </style>
+</head>
+<body class="font-body bg-[#fdfbf7] text-gray-800 flex flex-col min-h-screen">
+
+    <!-- BANNER (GIỐNG HÌNH CANVA) -->
+    <header class="relative w-full h-[300px] bg-cover bg-center flex flex-col justify-center items-center text-center text-white" 
+            style="background-image: url('https://i.postimg.cc/4NbMH428/ocean.jpg');">
+        <div class="absolute inset-0 bg-blue-900/40"></div>
+        <div class="relative z-10">
+            <h1 class="text-6xl md:text-8xl font-script mb-2">Dũng Kiều</h1>
+            <p class="text-lg uppercase tracking-[0.2em] font-bold border-t border-b border-white/50 py-2 inline-block">Cửa hàng hải sản khô và 1 nắng</p>
+            <h3 class="text-3xl md:text-3xl font-serif-viet font-bold mt-6 uppercase drop-shadow-lg">Danh mục sản phẩm</h3>
+        </div>
+    </header>
+
+    <!-- MENU -->
+    <nav class="bg-[#5bb6d0] text-white sticky top-0 z-50 shadow-md">
+        <div class="w-full px-6 md:px-12 py-3">
+            <ul class="flex flex-wrap justify-between items-center text-xl md:text-2xl font-script w-full">
+                <li><a href="index.html" class="hover:text-gray-100 transition">Trang chủ</a></li>
+                <li><a href="products.html" class="font-bold border-b-2 border-white transition">Sản phẩm</a></li>
+                <li><a href="cart.html" class="hover:text-gray-100 transition">Giỏ hàng</a></li>
+                <li><a href="order-history.html" class="hover:text-gray-100 transition">Lịch sử đơn</a></li>
+                <li id="userLink"><a href="login.html" class="hover:text-gray-100 transition">Đăng nhập/Đăng ký</a></li>
+            </ul>
+        </div>
+
+    <!-- THANH CÔNG CỤ (TÌM KIẾM + DANH MỤC XỔ XUỐNG) -->
+    <div class="bg-white border-b shadow-sm sticky top-[60px] z-40">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center gap-4 justify-between">
+            
+            <!-- 1. NÚT DANH MỤC XỔ XUỐNG (DROPDOWN) -->
+            <div class="relative group">
+                <button class="flex items-center gap-2 font-bold text-gray-700 hover:text-[#5bb6d0] transition uppercase tracking-wider py-2">
+                    <i class="fas fa-bars text-xl"></i>
+                    <span>Danh mục sản phẩm</span>
+                    <i class="fas fa-chevron-down text-xs ml-1 transition-transform group-hover:rotate-180"></i>
+                </button>
+
+                <!-- Cái list xổ xuống nằm ở đây -->
+                <!-- CẦU NỐI VÔ HÌNH (Lớp pt-4 này quan trọng nè) -->
+<div class="absolute top-full left-0 pt-4 w-64 hidden group-hover:block z-50">
+    
+            <!-- CÁI HỘP TRẮNG THỰC SỰ NẰM TRONG NÀY -->
+            <div class="bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden">
+                <!-- Mũi tên nhỏ chỉ lên trên cho đẹp -->
+                <div class="absolute -top-2 left-8 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-100"></div>
+
+                <a href="products.html" class="block px-5 py-3 hover:bg-gray-50 border-b border-gray-50 text-gray-600 hover:text-[#5bb6d0] font-medium transition">
+                    <i class="fas fa-th-large mr-2"></i> Tất cả sản phẩm
+                </a>
+                <a href="products.html?cat=ca-1-nang" class="block px-5 py-3 hover:bg-gray-50 border-b border-gray-50 text-gray-600 hover:text-[#5bb6d0] transition">
+                    🐟 Cá 1 Nắng
+                </a>
+                <a href="products.html?cat=ca-kho" class="block px-5 py-3 hover:bg-gray-50 border-b border-gray-50 text-gray-600 hover:text-[#5bb6d0] transition">
+                    🐠 Cá Khô
+                </a>
+                <a href="products.html?cat=muc-kho" class="block px-5 py-3 hover:bg-gray-50 border-b border-gray-50 text-gray-600 hover:text-[#5bb6d0] transition">
+                    🦑 Mực Khô
+                </a>
+                <a href="products.html?cat=muc-1-nang" class="block px-5 py-3 hover:bg-gray-50 border-b border-gray-50 text-gray-600 hover:text-[#5bb6d0] transition">
+                    🐙 Mực 1 Nắng
+                </a>
+                <a href="products.html?cat=tom-kho" class="block px-5 py-3 hover:bg-gray-50 border-b border-gray-50 text-gray-600 hover:text-[#5bb6d0] transition">
+                    🦐 Tôm Khô
+                </a>
+            </div>
+        </div>
+            </div>
+            
+            <!-- 2. THANH TÌM KIẾM (Đã sửa màu chữ) -->
+            <div class="relative w-full md:w-[500px]">
+                <input type="text" id="searchInput" 
+                       placeholder="Bạn muốn ăn gì hôm nay?" 
+                       class="w-full border border-gray-300 rounded-full py-2.5 pl-5 pr-12 focus:outline-none focus:border-[#5bb6d0] focus:ring-1 focus:ring-[#5bb6d0] bg-gray-50 text-gray-800 placeholder-gray-400">
+                
+                <button id="searchBtn" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-[#5bb6d0] text-white rounded-full flex items-center justify-center hover:bg-blue-600 transition">
+                    <i class="fas fa-search text-sm"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+    </nav>
+
+    <!-- NỘI DUNG CHÍNH -->
+    <main class="max-w-7xl mx-auto px-4 py-10 w-full flex-grow" id="mainContent">
+        <div class="text-center py-10">Đang tải dữ liệu...</div>
+    </main>
+
+    <!-- FOOTER MỚI (CÓ ĐỊA CHỈ & SDT) -->
+    <footer class="relative w-full text-white bg-cover bg-center bg-no-repeat mt-auto" 
+            style="background-image: url('https://i.postimg.cc/rwV8h3Dw/The-Grand-(1).png');">
+        
+        <!-- Lớp phủ tối màu -->
+        <div class="absolute inset-0 bg-[#0f172a]/80"></div>
+
+        <div class="relative z-10 w-full px-6 md:px-12 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                
+                <!-- CỘT 1: THƯƠNG HIỆU -->
+                <div class="text-center md:text-left space-y-2">
+                    <h2 class="font-serif-viet text-3xl font-bold text-[#5bb6d0]">Dũng Kiều</h2>
+                    <p class="text-sm opacity-60 font-body">Hải sản khô & 1 nắng chất lượng cao.</p>
+                    <p class="text-xs opacity-40">© 2024 All rights reserved.</p>
+                    
+                    <!-- Link bí mật vào Admin (Tui giấu ở đây nè) -->
+                    <a href="admin.html" class="text-[10px] opacity-10 hover:opacity-100 hover:text-yellow-400 block pt-2">
+                        Admin Login
+                    </a>
+                </div>
+
+                <!-- CỘT 2: LIÊN HỆ (ĐỊA CHỈ & SDT) -->
+                <div class="text-center border-t border-b border-white/10 py-6 md:py-0 md:border-0">
+                    <h3 class="font-bold text-lg mb-4 uppercase tracking-wider text-[#5bb6d0]">Liên hệ</h3>
+                    <!-- Địa chỉ -->
+                    <div class="flex flex-row items-center justify-center gap-2 mb-4">
+    <i class="fas fa-map-marker-alt text-xl text-[#5bb6d0]"></i>
+    <p class="font-body text-sm md:text-base whitespace-nowrap">
+        51 Kim Đồng, phường Rạch Dừa, TP HCM (TP Vũng Tàu cũ)
+    </p>
+</div>
+
+                    <!-- Số điện thoại -->
+<div class="flex flex-row items-center justify-center gap-2 mb-4">
+                        <i class="fas fa-phone-volume text-xl mb-1"></i>
+                        <a href="tel:0933756772" class="font-bold text-xl md:text-2xl hover:text-[#5bb6d0] transition">
+                            0933 756 772
+                        </a>
+                    </div>
+                </div>
+
+                <!-- CỘT 3: MẠNG XÃ HỘI & LINK -->
+                <div class="text-center md:text-right space-y-4">
+                    <div class="flex justify-center md:justify-end gap-4">
+                        <!-- Facebook -->
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center hover:bg-white hover:text-[#1877F2] transition duration-300 transform hover:scale-110">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <!-- Zalo -->
+                        <a href="https://zalo.me/0933756772" target="_blank" class="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center hover:bg-white hover:text-[#0068FF] transition duration-300 transform hover:scale-110">
+                            <i class="fas fa-comment-dots"></i>
+                        </a>
+                        <!-- Tiktok/Youtube -->
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center hover:bg-white hover:text-black transition duration-300 transform hover:scale-110">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Link phụ -->
+                    <div class="flex flex-col md:flex-row justify-end gap-3 text-xs opacity-60">
+                        <a href="#" class="hover:text-white hover:underline">Chính sách bảo mật</a>
+                        <span class="hidden md:inline">|</span>
+                        <a href="#" class="hover:text-white hover:underline">Điều khoản sử dụng</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+  <!-- LOGIC HIỂN THỊ -->
+    <script type="module">
+        import * as API from "./api.js";
+        import * as Cart from "./cart.js";
+        window.Cart = Cart;
+
+        const mainContent = document.getElementById("mainContent");
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentCat = urlParams.get('cat'); // Lấy mã danh mục trên URL
+
+        // ==========================================
+        // ĐIỀU HƯỚNG: XEM CHI TIẾT HAY TỔNG QUAN
+        // ==========================================
+        if (currentCat) {
+            renderSingleCategoryPage(currentCat);
+        } else {
+            renderDashboardPage();
+        }
+ // --- 1. XỬ LÝ ĐĂNG NHẬP / ĐỔI MENU ---
+    API.checkLoginStatus((user) => {
+        const userLink = document.getElementById("userLink");
+        if (!userLink) return;
+
+        if (user) {
+            // Lấy tên từ email (bỏ phần đuôi @...)
+            const name = user.email.split('@')[0];
+
+           userLink.innerHTML = `
+                <div class="relative group cursor-pointer h-full flex items-center">
+                    <span class="font-bold border-b border-transparent group-hover:border-white pb-1">
+                        Chào, ${name}
+                    </span>
+                    
+                    <!-- MENU THẢ XUỐNG -->
+                    <!-- Sửa: Thêm pt-4 để tạo cầu nối vô hình, bọc cái hộp trắng vào trong -->
+                    <div class="absolute right-0 top-full pt-4 w-56 hidden group-hover:block z-50">
+                        
+                        <!-- Cái hộp trắng thực sự nằm ở đây -->
+                        <div class="bg-white text-black shadow-xl rounded-lg overflow-hidden border border-gray-100">
+                            <!-- Mũi tên nhỏ chỉ lên trên (Trang trí cho đẹp) -->
+                            <div class="absolute -top-2 right-4 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-100"></div>
+
+                            <a href="order-history.html" class="block px-4 py-3 hover:bg-gray-50 border-b flex items-center gap-2">
+                                <i class="fas fa-box text-[#5bb6d0]"></i> Đơn hàng của tui
+                            </a>
+                            <button onclick="window.handleLogout()" class="block w-full text-left px-4 py-3 hover:bg-red-50 text-red-600 font-bold flex items-center gap-2">
+                                <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            // Hàm đăng xuất
+            window.handleLogout = async () => {
+                await API.logout();
+                window.location.reload();
+            }
+        } else {
+            // Chưa đăng nhập
+            userLink.innerHTML = `<a href="login.html" class="hover:text-gray-100 transition">Đăng nhập/Đăng ký</a>`;
+        }
+    });
+
+  // --- CẬP NHẬT HÀM: Render Trang Tổng Quan ---
+        async function renderDashboardPage() {
+            try {
+                // 1. Lấy dữ liệu
+                const products = await API.getAllProducts();
+                
+                // 2. Kiểm tra có từ khóa tìm kiếm không?
+                // Lấy từ URL (nếu từ trang chủ qua) HOẶC lấy từ ô nhập liệu
+                const urlSearch = urlParams.get('search'); 
+                const inputSearch = document.getElementById("searchInput").value;
+                const keyword = (inputSearch || urlSearch || "").toLowerCase().trim();
+
+                // Nếu có từ khóa -> Chuyển sang chế độ "Kết quả tìm kiếm"
+                if (keyword) {
+                    // Điền lại từ khóa vào ô cho khách biết
+                    document.getElementById("searchInput").value = keyword; 
+                    
+                    // Lọc sản phẩm (Tìm trong Tên sản phẩm)
+                    // Dùng hàm toLowerCase để chữ hoa chữ thường gì cũng tìm ra
+                    const filtered = products.filter(p => p.name.toLowerCase().includes(keyword));
+
+                    mainContent.innerHTML = `
+                        <h2 class="text-3xl font-serif-viet font-bold text-gray-800 mb-6">
+                            Kết quả tìm kiếm: "${keyword}" (${filtered.length} sản phẩm)
+                        </h2>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                            ${filtered.map(p => createProductCard(p)).join('')}
+                        </div>
+                    `;
+                    
+                    if(filtered.length === 0) {
+                        mainContent.innerHTML += `<p class="text-center text-gray-500 mt-10">Không tìm thấy món nào tên như vậy cả bà ơi!</p>`;
+                    }
+                    return; // Dừng hàm, không chạy phần danh mục bên dưới nữa
+                }
+
+                // ============================================
+                // NẾU KHÔNG TÌM KIẾM -> HIỆN DANH MỤC BÌNH THƯỜNG (CODE CŨ)
+                // ============================================
+                const categories = [
+                    {id: 'ca-1-nang', name: 'Cá 1 Nắng'},
+                    {id: 'muc-kho', name: 'Mực Khô'},
+                    {id: 'tom-kho', name: 'Tôm Khô'},
+                    {id: 'muc-1-nang', name: 'Mực 1 Nắng'}
+                ];
+
+                mainContent.innerHTML = ""; 
+
+                categories.forEach(cat => {
+                    const catProducts = products.filter(p => p.categoryId === cat.id).slice(0, 4);
+                    if (catProducts.length > 0) {
+                        let sectionHtml = `
+                            <div class="mb-12">
+                                <div class="flex justify-between items-end mb-6 border-b pb-2">
+                                    <h2 class="text-3xl font-serif-viet font-bold text-gray-800">${cat.name}</h2>
+                                    <a href="products.html?cat=${cat.id}" class="text-sm font-bold border border-gray-300 px-4 py-1 rounded-full hover:bg-black hover:text-white transition cursor-pointer">View all</a>
+                                </div>
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        `;
+                        catProducts.forEach(p => { sectionHtml += createProductCard(p); });
+                        sectionHtml += `</div></div>`;
+                        mainContent.innerHTML += sectionHtml;
+                    }
+                });
+
+            } catch (error) { console.error(error); }
+        }
+
+        // --- 3. BẮT SỰ KIỆN NÚT TÌM KIẾM ---
+        // (Dán đoạn này xuống cuối cùng của thẻ script)
+        
+        // Bấm nút kính lúp
+        document.getElementById("searchBtn").addEventListener("click", () => {
+            renderDashboardPage(); // Gọi lại hàm render để nó lọc lại
+        });
+
+        // Bấm phím Enter trong ô nhập
+        document.getElementById("searchInput").addEventListener("keypress", (e) => {
+            if (e.key === 'Enter') {
+                renderDashboardPage();
+            }
+        });
+        // --- HÀM 2: Render Trang Chi Tiết 1 Danh Mục (ĐÃ SỬA TÊN ĐẸP) ---
+        async function renderSingleCategoryPage(catId) {
+            // 1. Từ điển dịch tên (Thêm các loại của bà vào đây)
+            const categoryNames = {
+                'ca-1-nang': 'Cá 1 Nắng',
+                'muc-kho': 'Mực Khô',
+                'tom-kho': 'Tôm Khô',
+                'muc-1-nang': 'Mực 1 Nắng',
+                'ca-kho': 'Cá Khô'
+            };
+
+            // Lấy tên tiếng Việt đẹp, nếu ko có thì lấy tạm cái mã
+            const displayTitle = categoryNames[catId] || catId;
+
+            try {
+                const products = await API.getAllProducts();
+                const filteredProducts = products.filter(p => p.categoryId === catId);
+                
+                mainContent.innerHTML = `
+                    <div class="mb-6">
+                        <!-- 2. Đã sửa nút Quay lại -->
+                        <a href="products.html" class="inline-flex items-center text-gray-500 hover:text-[#5bb6d0] font-bold transition text-sm uppercase tracking-wider">
+                            <i class="fas fa-arrow-left mr-2"></i> Quay lại danh sách
+                        </a>
+                    </div>
+                    
+                    <!-- 3. Đã sửa Tiêu đề (Bỏ chữ Danh mục:, hiện tên Tiếng Việt) -->
+                    <h2 class="text-4xl md:text-5xl font-serif-viet font-bold text-gray-800 mb-10 text-center uppercase tracking-wide">
+                        ${displayTitle}
+                    </h2>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        ${filteredProducts.map(p => createProductCard(p)).join('')}
+                    </div>
+                `;
+            } catch (error) { console.error(error); }
+        }
+
+        // --- HÀM HỖ TRỢ: Tạo thẻ HTML cho 1 sản phẩm ---
+        function createProductCard(p) {
+            const price = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(p.price);
+            
+            return `
+                <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition duration-300 overflow-hidden group border border-gray-100 flex flex-col">
+                    <a href="product-detail.html?id=${p.id}" class="h-48 md:h-64 overflow-hidden relative block">
+                        <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="${p.name}">
+                    </a>
+                    <div class="p-4 flex flex-col flex-grow text-center">
+                        <a href="product-detail.html?id=${p.id}" class="font-serif-viet font-bold text-lg text-gray-800 hover:text-[#5bb6d0] transition line-clamp-1 mb-1">
+                            ${p.name}
+                        </a>
+                        <p class="text-gray-500 text-sm mb-2">${p.weight || '1kg'}</p>
+                        <p class="text-black font-bold text-lg mb-3">${price}</p>
+                        
+                        <button onclick='window.Cart.addToCart(${JSON.stringify(p).replace(/"/g, '&quot;')})' 
+                           class="mx-auto w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-[#5bb6d0] hover:text-white hover:border-[#5bb6d0] transition">
+                            <i class="fas fa-shopping-bag"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+    </script>
+</body>
+</html>

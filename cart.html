@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Giỏ hàng - Dũng Kiều </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .font-script { font-family: 'Pinyon Script', cursive; }
+        .font-serif-viet { font-family: 'Lora', serif; }
+        .font-body { font-family: 'Roboto', sans-serif; }
+    </style>
+</head>
+<body class="font-body bg-[#fdfbf7] text-gray-800 flex flex-col min-h-screen">
+
+    <!-- BANNER (GIỐNG HÌNH CANVA) -->
+    <header class="relative w-full h-[300px] bg-cover bg-center flex flex-col justify-center items-center text-center text-white" 
+            style="background-image: url('https://i.postimg.cc/4NbMH428/ocean.jpg');">
+        <div class="absolute inset-0 bg-blue-900/40"></div>
+        <div class="relative z-10">
+            <h1 class="text-6xl md:text-8xl font-script mb-2">Dũng Kiều</h1>
+            <p class="text-lg uppercase tracking-[0.2em] font-bold border-t border-b border-white/50 py-2 inline-block">Cửa hàng hải sản khô và 1 nắng</p>
+            <h3 class="text-3xl md:text-3xl font-serif-viet font-bold mt-6 uppercase drop-shadow-lg">Danh mục sản phẩm</h3>
+        </div>
+    </header>
+
+    <!-- MENU -->
+    <nav class="bg-[#5bb6d0] text-white sticky top-0 z-50 shadow-md">
+        <div class="w-full px-6 md:px-12 py-3">
+            <ul class="flex flex-wrap justify-between items-center text-xl md:text-2xl font-script w-full">
+                <span class="font-script text-3xl text-gray-100">Dũng Kiều</span>
+                <li><a href="index.html" class="hover:text-gray-100 transition">Trang chủ</a></li>
+                <li><a href="products.html" class="hover:text-gray-100 transition">Sản phẩm</a></li>
+                <li><a href="cart.html" class="font-bold border-b-2 border-white transition">Giỏ hàng</a></li>
+                <li><a href="order-history.html" class="hover:text-gray-100 transition">Lịch sử đơn</a></li>
+                <li id="userLink"><a href="login.html" class="hover:text-gray-100 transition">Đăng nhập/Đăng ký</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HEADER GIỎ HÀNG -->
+    <header class="py-10 text-center">
+        <h1 class="text-4xl md:text-5xl font-serif-viet font-bold text-gray-800 uppercase tracking-wide">Giỏ hàng của bạn</h1>
+        <p class="text-gray-500 mt-2">Kiểm tra lại món ngon trước khi chốt đơn nhé!</p>
+    </header>
+
+    <!-- NỘI DUNG CHÍNH -->
+    <main class="max-w-7xl mx-auto px-4 pb-20 w-full flex-grow">
+        
+        <!-- TRƯỜNG HỢP GIỎ HÀNG TRỐNG -->
+        <div id="emptyCartMessage" class="hidden text-center py-10">
+            <img src="https://cdn-icons-png.flaticon.com/512/11329/11329060.png" class="w-32 mx-auto mb-4 opacity-50">
+            <p class="text-xl text-gray-500 mb-6">Giỏ hàng đang trống trơn à nghen!</p>
+            <a href="products.html" class="inline-block bg-black text-white px-8 py-3 rounded-full font-bold hover:bg-[#5bb6d0] transition">
+                Đi chợ ngay
+            </a>
+        </div>
+
+        <!-- TRƯỜNG HỢP CÓ HÀNG -->
+        <div id="cartContent" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- CỘT TRÁI: DANH SÁCH SẢN PHẨM -->
+            <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm">
+                <table class="w-full">
+                    <thead class="border-b text-left">
+                        <tr>
+                            <th class="pb-4 font-serif-viet text-lg">Sản phẩm</th>
+                            <th class="pb-4 font-serif-viet text-lg text-center">Số lượng</th>
+                            <th class="pb-4 font-serif-viet text-lg text-right">Tổng</th>
+                            <th class="pb-4"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="cartItemsList" class="divide-y">
+                        <!-- Item sẽ được render vào đây -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- CỘT PHẢI: FORM THANH TOÁN -->
+            <div class="lg:col-span-1">
+                <div class="bg-white p-6 rounded-2xl shadow-lg sticky top-24 border border-gray-100">
+                    <h3 class="font-serif-viet text-2xl font-bold mb-6">Thông tin giao hàng</h3>
+                    
+                    <form id="checkoutForm" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Họ và tên</label>
+                            <input type="text" id="custName" required class="w-full border border-gray-300 rounded-lg p-3 focus:border-[#5bb6d0] outline-none" placeholder="Ví dụ: Dũng Kiều">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Số điện thoại</label>
+                            <input type="tel" id="custPhone" required class="w-full border border-gray-300 rounded-lg p-3 focus:border-[#5bb6d0] outline-none" placeholder="090...">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Địa chỉ nhận hàng</label>
+                            <textarea id="custAddress" required rows="3" class="w-full border border-gray-300 rounded-lg p-3 focus:border-[#5bb6d0] outline-none" placeholder="Số nhà, tên đường, phường/xã..."></textarea>
+                        </div>
+
+                        <div class="border-t pt-4 mt-4">
+                            <div class="flex justify-between items-center mb-2 text-lg">
+                                <span>Tạm tính:</span>
+                                <span class="font-bold" id="tempTotal">0đ</span>
+                            </div>
+                            <div class="flex justify-between items-center mb-4 text-xl font-bold text-red-600">
+                                <span>Tổng cộng:</span>
+                                <span id="finalTotal">0đ</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-black text-white py-4 rounded-full font-bold text-lg uppercase tracking-wider hover:bg-[#5bb6d0] transition shadow-lg transform hover:scale-105">
+                            Đặt hàng ngay
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- SCRIPT LOGIC -->
+    <script type="module">
+        import * as API from "./api.js";
+        import * as Cart from "./cart.js";
+ // --- 1. XỬ LÝ ĐĂNG NHẬP / ĐỔI MENU ---
+    API.checkLoginStatus((user) => {
+        const userLink = document.getElementById("userLink");
+        if (!userLink) return;
+
+        if (user) {
+            // Lấy tên từ email (bỏ phần đuôi @...)
+            const name = user.email.split('@')[0];
+
+         userLink.innerHTML = `
+                <div class="relative group cursor-pointer h-full flex items-center">
+                    <span class="font-bold border-b border-transparent group-hover:border-white pb-1">
+                        Chào, ${name}
+                    </span>
+                    
+                    <!-- MENU THẢ XUỐNG -->
+                    <!-- Sửa: Thêm pt-4 để tạo cầu nối vô hình, bọc cái hộp trắng vào trong -->
+                    <div class="absolute right-0 top-full pt-4 w-56 hidden group-hover:block z-50">
+                        
+                        <!-- Cái hộp trắng thực sự nằm ở đây -->
+                        <div class="bg-white text-black shadow-xl rounded-lg overflow-hidden border border-gray-100">
+                            <!-- Mũi tên nhỏ chỉ lên trên (Trang trí cho đẹp) -->
+                            <div class="absolute -top-2 right-4 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-100"></div>
+
+                            <a href="order-history.html" class="block px-4 py-3 hover:bg-gray-50 border-b flex items-center gap-2">
+                                <i class="fas fa-box text-[#5bb6d0]"></i> Đơn hàng của tui
+                            </a>
+                            <button onclick="window.handleLogout()" class="block w-full text-left px-4 py-3 hover:bg-red-50 text-red-600 font-bold flex items-center gap-2">
+                                <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Hàm đăng xuất
+            window.handleLogout = async () => {
+                await API.logout();
+                window.location.reload();
+            }
+        } else {
+            // Chưa đăng nhập
+            userLink.innerHTML = `<a href="login.html" class="hover:text-gray-100 transition">Đăng nhập/Đăng ký</a>`;
+        }
+    });
+
+        // 1. HÀM HIỂN THỊ GIỎ HÀNG
+        function renderCartPage() {
+            const cart = Cart.getCart();
+            const listContainer = document.getElementById("cartItemsList");
+            const emptyMsg = document.getElementById("emptyCartMessage");
+            const content = document.getElementById("cartContent");
+
+            // Nếu giỏ trống
+            if (cart.length === 0) {
+                emptyMsg.classList.remove("hidden");
+                content.classList.add("hidden");
+                return;
+            }
+
+            // Nếu có hàng
+            emptyMsg.classList.add("hidden");
+            content.classList.remove("hidden");
+            content.classList.add("grid");
+
+            listContainer.innerHTML = "";
+            let totalMoney = 0;
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                totalMoney += itemTotal;
+                
+                const priceStr = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.price);
+                const totalStr = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(itemTotal);
+
+                listContainer.innerHTML += `
+                    <tr class="group">
+                        <td class="py-4">
+                            <div class="flex items-center gap-4">
+                                <img src="${item.image}" class="w-16 h-16 object-cover rounded-lg border border-gray-200">
+                                <div>
+                                    <h4 class="font-bold text-gray-800 line-clamp-1">${item.name}</h4>
+                                    <p class="text-sm text-gray-500">${priceStr}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-4 text-center">
+                            <div class="inline-flex items-center border border-gray-300 rounded-full px-2 py-1">
+                                <button onclick="updateQty('${item.id}', -1)" class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-black">-</button>
+                                <span class="mx-2 font-bold w-4 text-center">${item.quantity}</span>
+                                <button onclick="updateQty('${item.id}', 1)" class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-black">+</button>
+                            </div>
+                        </td>
+                        <td class="py-4 text-right font-bold text-gray-800">${totalStr}</td>
+                        <td class="py-4 text-right">
+                            <button onclick="removeItem('${item.id}')" class="text-gray-400 hover:text-red-500 transition ml-2">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            // Cập nhật tổng tiền bên form
+            const finalStr = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalMoney);
+            document.getElementById("tempTotal").innerText = finalStr;
+            document.getElementById("finalTotal").innerText = finalStr;
+        }
+
+        // 2. CÁC HÀM XỬ LÝ (Gắn vào window để gọi từ HTML)
+        window.updateQty = function(id, change) {
+            Cart.updateItemQuantity(id, change);
+            renderCartPage(); // Vẽ lại giao diện
+        }
+
+        window.removeItem = function(id) {
+            if(confirm("Bà có chắc muốn xóa món này không?")) {
+                Cart.removeFromCart(id);
+                renderCartPage();
+            }
+        }
+
+       // 3. XỬ LÝ KHI BẤM NÚT ĐẶT HÀNG -> CHUYỂN QUA THANH TOÁN
+        document.getElementById("checkoutForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            // Kiểm tra đăng nhập
+            API.checkLoginStatus((user) => {
+                if (!user) {
+                    if(confirm("Bà cần đăng nhập để đặt hàng nha!")) {
+                        window.location.href = "login.html";
+                    }
+                    return;
+                }
+
+                const cart = Cart.getCart();
+                if (cart.length === 0) {
+                    alert("Giỏ hàng trống trơn!");
+                    return;
+                }
+
+                // Lấy thông tin khách nhập
+                const customerInfo = {
+                    name: document.getElementById("custName").value,
+                    phone: document.getElementById("custPhone").value,
+                    address: document.getElementById("custAddress").value,
+                    email: user.email,
+                    uid: user.uid
+                };
+
+                // LƯU TẠM THÔNG TIN VÀO BỘ NHỚ ĐỂ QUA TRANG KIA XÀI
+                localStorage.setItem("dk_customer_info", JSON.stringify(customerInfo));
+
+                // CHUYỂN HƯỚNG QUA TRANG THANH TOÁN
+                window.location.href = "payment.html";
+            });
+        });
+        // Chạy lúc mới vào trang
+        renderCartPage();
+    </script>
+</body>
+</html>

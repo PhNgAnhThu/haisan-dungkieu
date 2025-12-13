@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng nhập - Dũng Kiều</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-[#fdfbf7] min-h-screen flex flex-col font-[Roboto]">
+
+    <!-- Nút quay về trang chủ -->
+    <div class="p-6">
+        <a href="index.html" class="flex items-center gap-2 text-gray-600 hover:text-black font-bold transition">
+            <i class="fas fa-arrow-left"></i> Về trang chủ
+        </a>
+    </div>
+
+    <div class="flex-grow flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md p-8 rounded-2xl shadow-xl border border-gray-100 relative">
+            
+            <!-- Logo -->
+            <h1 class="text-5xl font-['Pinyon_Script'] text-center text-[#5bb6d0] mb-2">Dũng Kiều</h1>
+            <p class="text-center text-gray-500 mb-8 uppercase text-xs tracking-widest font-bold">Hải sản 1 nắng</p>
+
+            <!-- Tabs -->
+            <div class="flex border-b mb-6">
+                <button onclick="switchForm('login')" id="tabLogin" class="w-1/2 pb-3 font-bold text-[#5bb6d0] border-b-2 border-[#5bb6d0]">Đăng nhập</button>
+                <button onclick="switchForm('register')" id="tabRegister" class="w-1/2 pb-3 font-bold text-gray-400 hover:text-black">Đăng ký</button>
+            </div>
+
+            <!-- FORM KHÁCH HÀNG -->
+            <form id="loginForm" class="space-y-4">
+                <input type="email" id="loginEmail" placeholder="Email của bạn" class="w-full border p-3 rounded-lg focus:outline-none focus:border-[#5bb6d0]" required>
+                <input type="password" id="loginPass" placeholder="Mật khẩu" class="w-full border p-3 rounded-lg focus:outline-none focus:border-[#5bb6d0]" required>
+                <button type="submit" class="w-full bg-black text-white py-3 rounded-full font-bold hover:bg-[#5bb6d0] transition">ĐĂNG NHẬP</button>
+            </form>
+
+            <form id="registerForm" class="space-y-4 hidden">
+                <input type="email" id="regEmail" placeholder="Nhập Email đăng ký" class="w-full border p-3 rounded-lg focus:outline-none focus:border-[#5bb6d0]" required>
+                <input type="password" id="regPass" placeholder="Tạo mật khẩu (trên 6 ký tự)" class="w-full border p-3 rounded-lg focus:outline-none focus:border-[#5bb6d0]" required>
+                <input type="password" id="regPassConfirm" placeholder="Nhập lại mật khẩu" class="w-full border p-3 rounded-lg focus:outline-none focus:border-[#5bb6d0]" required>
+                <button type="submit" class="w-full bg-[#5bb6d0] text-white py-3 rounded-full font-bold hover:bg-black transition">ĐĂNG KÝ NGAY</button>
+            </form>
+            
+            <p id="msg" class="text-center mt-4 text-sm font-bold"></p>
+
+            <!-- ============================================== -->
+            <!-- NÚT DÀNH RIÊNG CHO ADMIN (MỚI THÊM) -->
+            <!-- ============================================== -->
+            <div class="mt-8 pt-6 border-t border-gray-100 text-center">
+                <p class="text-xs text-gray-400 uppercase tracking-widest mb-2">Dành cho quản lý</p>
+                <a href="admin.html" class="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-red-500 transition px-4 py-2 rounded-lg hover:bg-red-50">
+                    <i class="fas fa-user-shield"></i> Đăng nhập Admin
+                </a>
+            </div>
+            <!-- ============================================== -->
+
+        </div>
+    </div>
+
+    <!-- Script giữ nguyên (Tui thêm icon font-awesome vào head cho bà luôn nha) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script type="module">
+        import * as API from "./api.js";
+
+        // Chuyển tab
+        window.switchForm = (type) => {
+            // ... (Code cũ giữ nguyên) ...
+            const loginF = document.getElementById("loginForm");
+            const regF = document.getElementById("registerForm");
+            const tabL = document.getElementById("tabLogin");
+            const tabR = document.getElementById("tabRegister");
+            const msg = document.getElementById("msg");
+
+            msg.innerText = ""; 
+
+            if (type === 'login') {
+                loginF.classList.remove("hidden");
+                regF.classList.add("hidden");
+                tabL.className = "w-1/2 pb-3 font-bold text-[#5bb6d0] border-b-2 border-[#5bb6d0]";
+                tabR.className = "w-1/2 pb-3 font-bold text-gray-400 hover:text-black";
+            } else {
+                loginF.classList.add("hidden");
+                regF.classList.remove("hidden");
+                tabR.className = "w-1/2 pb-3 font-bold text-[#5bb6d0] border-b-2 border-[#5bb6d0]";
+                tabL.className = "w-1/2 pb-3 font-bold text-gray-400 hover:text-black";
+            }
+        }
+
+        // Xử lý Đăng nhập KHÁCH
+        document.getElementById("loginForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const email = document.getElementById("loginEmail").value;
+            const pass = document.getElementById("loginPass").value;
+            try {
+                await API.login(email, pass);
+                alert("Đăng nhập thành công!");
+                window.location.href = "index.html"; 
+            } catch (err) {
+                document.getElementById("msg").innerText = "Sai thông tin rồi khách ơi!";
+                document.getElementById("msg").style.color = "red";
+            }
+        });
+
+        // Xử lý Đăng ký KHÁCH
+        document.getElementById("registerForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const email = document.getElementById("regEmail").value;
+            const pass = document.getElementById("regPass").value;
+            const confirm = document.getElementById("regPassConfirm").value;
+
+            if (pass !== confirm) { alert("Mật khẩu không khớp!"); return; }
+            if (pass.length < 6) { alert("Mật khẩu ngắn quá!"); return; }
+
+            try {
+                await API.register(email, pass);
+                alert("Chào mừng khách mới! Đã đăng nhập tự động.");
+                window.location.href = "index.html";
+            } catch (err) {
+                let text = "Lỗi đăng ký.";
+                if(err.code === 'auth/email-already-in-use') text = "Email này có người xài rồi!";
+                document.getElementById("msg").innerText = text;
+                document.getElementById("msg").style.color = "red";
+            }
+        });
+    </script>
+</body>
+</html>
