@@ -19,25 +19,51 @@
     <header class="relative w-full h-[300px] bg-cover bg-center flex flex-col justify-center items-center text-center text-white" 
             style="background-image: url('https://i.postimg.cc/4NbMH428/ocean.jpg');">
         <div class="absolute inset-0 bg-blue-900/40"></div>
-        <div class="relative z-10">
+        <div class="relative z-10 px-4">
             <p class="text-lg uppercase tracking-[0.2em]">Chào mừng bạn đến với</p>
-            <h1 class="text-6xl md:text-8xl font-script mb-2">Dũng Kiều</h1>
+        <h1 class="text-6xl md:text-9xl font-script mb-2">Dũng Kiều</h1>
             <p class="text-lg uppercase tracking-[0.2em] font-bold border-t border-b border-white/50 py-2 inline-block">Cửa hàng hải sản khô và 1 nắng</p>
         </div>
     </header>
     <!-- NAVIGATION BAR (MENU XANH) -->
-     <nav class="bg-[#5bb6d0] text-white sticky top-0 z-50 shadow-md">
-        <div class="w-full px-6 md:px-12 py-3">
-            <ul class="flex flex-wrap justify-between items-center text-xl md:text-2xl font-script w-full">
-                <li><a href="index.html" class="font-bold border-b-2 border-white transition">Trang chủ</a></li>
-                <li><a href="products.html" class="hover:text-gray-100 transition">Sản phẩm</a></li>
-                <li><a href="cart.html" class="hover:text-gray-100 transition">Giỏ hàng</a></li>
-                <li><a href="order-history.html" class="hover:text-gray-100 transition">Lịch sử đơn</a></li>
-                <li id="userLink"><a href="login.html" class="hover:text-gray-100 transition">Đăng nhập/Đăng ký</a></li>
-            </ul>
+    <!-- MENU RESPONSIVE (XỊN XÒ) -->
+    <nav class="bg-[#5bb6d0] text-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center py-3">
+                
+                <!-- Logo / Tên Shop (Luôn hiện) -->
+                <a href="index.html" class="text-2xl font-script font-bold">Dũng Kiều</a>
+
+                <!-- Nút 3 gạch (Chỉ hiện trên Mobile) -->
+                <button onclick="document.getElementById('mobileMenu').classList.toggle('hidden')" class="md:hidden focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+
+                <!-- Menu Desktop (Ẩn trên Mobile, Hiện trên Máy tính) -->
+                <ul class="hidden md:flex space-x-8 text-xl font-script items-center">
+                    <li><a href="index.html" class="hover:text-gray-100 transition border-b-2 border-white">Trang chủ</a></li>
+                    <li><a href="products.html" class="hover:text-gray-100 transition">Sản phẩm</a></li>
+                    <li><a href="cart.html" class="hover:text-gray-100 transition">Giỏ hàng</a></li>
+                    <li id="userLink_Desktop">
+                        <a href="login.html" class="hover:text-gray-100 transition">Đăng nhập</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Menu Mobile (Xổ xuống khi bấm nút) -->
+            <div id="mobileMenu" class="hidden md:hidden pb-4 border-t border-white/20">
+                <ul class="flex flex-col space-y-3 mt-3 text-lg font-script text-center">
+                    <li><a href="index.html" class="block hover:bg-white/20 py-1 rounded">Trang chủ</a></li>
+                    <li><a href="products.html" class="block hover:bg-white/20 py-1 rounded">Sản phẩm</a></li>
+                    <li><a href="cart.html" class="block hover:bg-white/20 py-1 rounded">Giỏ hàng</a></li>
+                    <li><a href="order-history.html" class="block hover:bg-white/20 py-1 rounded">Lịch sử đơn</a></li>
+                    <li id="userLink_Mobile">
+                        <a href="login.html" class="block bg-white text-[#5bb6d0] mx-10 py-1 rounded-full font-bold">Đăng nhập</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
-
       <style>
         .font-serif-viet { font-family: 'Lora', serif; }
     </style>
@@ -214,8 +240,7 @@ Tôm khô nhà mình làm từ những con tôm biển vừa được chọn bu�
             <h2 class="text-3xl md:text-4xl font-serif text-center font-bold mb-12">Sản phẩm nổi bật</h2>
             
             <!-- Container chứa sản phẩm load từ JS -->
-            <div id="featuredProducts" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-                <!-- Loading state -->
+<div id="featuredProducts" class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-8">                <!-- Loading state -->
                 <div class="col-span-4 text-center text-gray-400">Đang tải sản phẩm...</div>
             </div>
         </div>
