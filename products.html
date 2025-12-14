@@ -16,13 +16,34 @@
 <body class="font-body bg-[#fdfbf7] text-gray-800 flex flex-col min-h-screen">
 
     <!-- BANNER -->
-    <header class="relative w-full h-[300px] bg-cover bg-center flex flex-col justify-center items-center text-center text-white" 
+   <!-- BANNER (ĐÃ SỬA CHIỀU CAO TỰ ĐỘNG) -->
+    <!-- Sửa: h-[300px] thành min-h-[300px] hoặc h-auto py-20 -->
+    <!-- BANNER TRANG SẢN PHẨM (ĐÃ CHỈNH SỬA) -->
+    <!-- BANNER SẢN PHẨM (ĐÃ CHỈNH KHÍT LẠI GIỐNG TRANG CHỦ) -->
+    <!-- Giảm chiều cao xuống h-[350px] cho gọn -->
+    <header class="relative w-full h-[350px] bg-cover bg-center flex flex-col justify-center items-center text-center text-white" 
             style="background-image: url('https://i.postimg.cc/4NbMH428/ocean.jpg');">
+        
         <div class="absolute inset-0 bg-blue-900/40"></div>
-       <div class="relative z-10 px-4">
-            <p class="text-lg uppercase tracking-[0.2em]">Chào mừng bạn đến với</p>
-            <h1 class="text-6xl md:text-9xl font-script mb-2">Dũng Kiều</h1>
-            <p class="text-lg uppercase tracking-[0.2em] font-bold border-t border-b border-white/50 py-2 inline-block">Cửa hàng hải sản khô và 1 nắng</p>
+        
+        <div class="relative z-10 px-4 flex flex-col items-center justify-center">
+            
+            <!-- Dòng 1: Nhỏ lại xíu -->
+            <p class="text-xs md:text-base uppercase tracking-[0.3em] mb-1 text-gray-200">Chào mừng bạn đến với</p>
+            
+            <!-- Dòng 2: Tên Shop -->
+            <h1 class="text-6xl md:text-9xl font-script mb-2 drop-shadow-xl">Dũng Kiều</h1>
+            
+            <!-- Dòng 3: Slogan (Giảm margin bottom từ mb-8 xuống mb-5) -->
+            <p class="text-xs md:text-base uppercase tracking-[0.2em] font-bold border-t border-b border-white/50 py-2 mb-5">
+                Cửa hàng hải sản khô và 1 nắng
+            </p>
+            
+            <!-- Dòng 4: Danh mục (Làm nhỏ lại cho tinh tế) -->
+            <h3 class="text-xl md:text-2xl font-serif-viet font-bold uppercase tracking-wide bg-white/20 backdrop-blur-md border border-white/30 px-6 py-2 rounded-full shadow-lg">
+                Danh mục sản phẩm
+            </h3>
+            
         </div>
     </header>
 
@@ -46,7 +67,7 @@
                     <li><a href="cart.html" class="hover:text-gray-100 transition">Giỏ hàng</a></li>
                     <li><a href="order-history.html" class="hover:text-gray-100 transition">Lịch sử đơn</a></li>
                     <li id="userLink_Desktop">
-                        <a href="login.html" class="hover:text-gray-100 transition">Đăng nhập</a>
+                        <a href="login.html" class="hover:text-gray-100 transition">Đăng nhập/Đăng ký</a>
                     </li>
                 </ul>
             </div>
@@ -59,7 +80,7 @@
                     <li><a href="cart.html" class="block hover:bg-white/20 py-1 rounded">Giỏ hàng</a></li>
                     <li><a href="order-history.html" class="block hover:bg-white/20 py-1 rounded">Lịch sử đơn</a></li>
                     <li id="userLink_Mobile">
-                        <a href="login.html" class="block bg-white text-[#5bb6d0] mx-10 py-1 rounded-full font-bold">Đăng nhập</a>
+                        <a href="login.html" class="block bg-white text-[#5bb6d0] mx-10 py-1 rounded-full font-bold">Đăng nhập/Đăng ký</a>
                     </li>
                 </ul>
             </div>

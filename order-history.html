@@ -2,13 +2,34 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Lịch sử đơn hàng - Dũng Kiều</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Lịch sử đơn hàng - Dũng Kiều </title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Lora:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>.font-serif-viet { font-family: 'Lora', serif; }</style>
+    <style>
+        .font-script { font-family: 'Pinyon Script', cursive; }
+        .font-serif-viet { font-family: 'Lora', serif; }
+        .font-body { font-family: 'Roboto', sans-serif; }
+    </style>
 </head>
-<body class="font-[Roboto] bg-[#fdfbf7] text-gray-800">
+<body class="font-body bg-[#fdfbf7] text-gray-800 flex flex-col min-h-screen">
+
+    <!-- BANNER (GIỐNG HÌNH CANVA) -->
+   <!-- BANNER (ĐÃ SỬA CHIỀU CAO TỰ ĐỘNG) -->
+    <!-- Sửa: h-[300px] thành min-h-[300px] hoặc h-auto py-20 -->
+    <!-- BANNER SẢN PHẨM (ĐÃ CHỈNH KHÍT LẠI GIỐNG TRANG CHỦ) -->
+    <!-- Giảm chiều cao xuống h-[350px] cho gọn -->
+   <!-- BANNER (GIỐNG HÌNH CANVA) -->
+    <header class="relative w-full h-[300px] bg-cover bg-center flex flex-col justify-center items-center text-center text-white" 
+            style="background-image: url('https://i.postimg.cc/4NbMH428/ocean.jpg');">
+        <div class="absolute inset-0 bg-blue-900/40"></div>
+            <div class="relative z-10 px-4">
+                <p class="text-lg uppercase tracking-[0.2em]">Chào mừng bạn đến với</p>
+            <h1 class="text-6xl md:text-9xl font-script mb-2">Dũng Kiều</h1>
+                <p class="text-lg uppercase tracking-[0.2em] font-bold border-t border-b border-white/50 py-2 inline-block">Cửa hàng hải sản khô và 1 nắng</p>
+        </div>
+    </header>
 
     <!-- MENU -->
     <!-- MENU RESPONSIVE (XỊN XÒ) -->
@@ -25,7 +46,8 @@
                 </button>
 
                 <!-- Menu Desktop (Ẩn trên Mobile, Hiện trên Máy tính) -->
-                 <ul class="hidden md:flex space-x-8 text-xl font-script items-center">
+                <!-- Menu Desktop -->
+                <ul class="hidden md:flex space-x-8 text-xl font-script items-center">
                     <li><a href="index.html" class="hover:text-gray-100 transition">Trang chủ</a></li>
                     <li><a href="products.html" class="hover:text-gray-100 transition">Sản phẩm</a></li>
                     <li><a href="cart.html" class="hover:text-gray-100 transition">Giỏ hàng</a></li>
@@ -34,7 +56,6 @@
                         <a href="login.html" class="hover:text-gray-100 transition">Đăng nhập/Đăng ký</a>
                     </li>
                 </ul>
-
             </div>
 
             <!-- Menu Mobile (Xổ xuống khi bấm nút) -->
@@ -45,13 +66,12 @@
                     <li><a href="cart.html" class="block hover:bg-white/20 py-1 rounded">Giỏ hàng</a></li>
                     <li><a href="order-history.html" class="block hover:bg-white/20 py-1 rounded">Lịch sử đơn</a></li>
                     <li id="userLink_Mobile">
-                        <a href="login.html" class="block bg-white text-[#5bb6d0] mx-10 py-1 rounded-full font-bold">Đăng nhập/Đăng ký</a>
+                        <a href="login.html" class="block bg-white text-[#5bb6d0] mx-10 py-1 rounded-full font-bold">Đăng nhập</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-
     <main class="max-w-4xl mx-auto px-4 py-10">
         <h1 class="text-3xl font-serif-viet font-bold text-center mb-8 uppercase">Đơn hàng của tui</h1>
         
@@ -63,47 +83,61 @@
     <script type="module">
         import * as API from "./api.js";
  // --- 1. XỬ LÝ ĐĂNG NHẬP / ĐỔI MENU ---
+   // --- 1. XỬ LÝ ĐĂNG NHẬP / ĐỔI MENU (CODE CHUẨN CHO CẢ MOBILE & DESKTOP) ---
     API.checkLoginStatus((user) => {
-        const userLink = document.getElementById("userLink");
-        if (!userLink) return;
+        // Lấy cả 2 cái menu (Máy tính và Điện thoại)
+        const userLinkDesktop = document.getElementById("userLink_Desktop");
+        const userLinkMobile = document.getElementById("userLink_Mobile");
 
         if (user) {
-            // Lấy tên từ email (bỏ phần đuôi @...)
             const name = user.email.split('@')[0];
-userLink.innerHTML = `
-                <div class="relative group cursor-pointer h-full flex items-center">
-                    <span class="font-bold border-b border-transparent group-hover:border-white pb-1">
-                        Chào, ${name}
-                    </span>
-                    
-                    <!-- MENU THẢ XUỐNG -->
-                    <!-- Sửa: Thêm pt-4 để tạo cầu nối vô hình, bọc cái hộp trắng vào trong -->
-                    <div class="absolute right-0 top-full pt-4 w-56 hidden group-hover:block z-50">
-                        
-                        <!-- Cái hộp trắng thực sự nằm ở đây -->
-                        <div class="bg-white text-black shadow-xl rounded-lg overflow-hidden border border-gray-100">
-                            <!-- Mũi tên nhỏ chỉ lên trên (Trang trí cho đẹp) -->
-                            <div class="absolute -top-2 right-4 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-100"></div>
 
-                            <a href="order-history.html" class="block px-4 py-3 hover:bg-gray-50 border-b flex items-center gap-2">
-                                <i class="fas fa-box text-[#5bb6d0]"></i> Đơn hàng của tui
-                            </a>
-                            <button onclick="window.handleLogout()" class="block w-full text-left px-4 py-3 hover:bg-red-50 text-red-600 font-bold flex items-center gap-2">
-                                <i class="fas fa-sign-out-alt"></i> Đăng xuất
-                            </button>
+            // 1. CẬP NHẬT MENU MÁY TÍNH
+            if (userLinkDesktop) {
+                userLinkDesktop.innerHTML = `
+                    <div class="relative group cursor-pointer h-full flex items-center">
+                        <span class="font-bold border-b border-transparent group-hover:border-white pb-1">
+                            Chào, ${name}
+                        </span>
+                        <!-- MENU THẢ XUỐNG -->
+                        <div class="absolute right-0 top-full pt-4 w-56 hidden group-hover:block z-50">
+                            <div class="bg-white text-black shadow-xl rounded-lg overflow-hidden border border-gray-100">
+                                <div class="absolute -top-2 right-4 w-4 h-4 bg-white transform rotate-45 border-l border-t border-gray-100"></div>
+                                <a href="order-history.html" class="block px-4 py-3 hover:bg-gray-50 border-b flex items-center gap-2">
+                                    <i class="fas fa-box text-[#5bb6d0]"></i> Đơn hàng của tui
+                                </a>
+                                <button onclick="window.handleLogout()" class="block w-full text-left px-4 py-3 hover:bg-red-50 text-red-600 font-bold flex items-center gap-2">
+                                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            `;
+                `;
+            }
 
-            // Hàm đăng xuất
+            // 2. CẬP NHẬT MENU ĐIỆN THOẠI (Làm đơn giản hơn cho đỡ rối)
+            if (userLinkMobile) {
+                userLinkMobile.innerHTML = `
+                    <div class="flex flex-col gap-2">
+                        <span class="text-gray-500 text-sm">Chào, ${name}</span>
+                        <button onclick="window.handleLogout()" class="bg-red-500 text-white py-1 px-4 rounded-full font-bold mx-auto">Đăng xuất</button>
+                    </div>
+                `;
+            }
+
+            // Hàm đăng xuất chung
             window.handleLogout = async () => {
                 await API.logout();
                 window.location.reload();
             }
+
         } else {
-            // Chưa đăng nhập
-            userLink.innerHTML = `<a href="login.html" class="hover:text-gray-100 transition">Đăng nhập/Đăng ký</a>`;
+            // CHƯA ĐĂNG NHẬP -> HIỆN NÚT LOGIN NHƯ CŨ
+            const loginHTML = `<a href="login.html" class="hover:text-gray-100 transition">Đăng nhập/Đăng ký</a>`;
+            const loginMobileHTML = `<a href="login.html" class="block bg-white text-[#5bb6d0] mx-10 py-1 rounded-full font-bold">Đăng nhập</a>`;
+
+            if (userLinkDesktop) userLinkDesktop.innerHTML = loginHTML;
+            if (userLinkMobile) userLinkMobile.innerHTML = loginMobileHTML;
         }
     });
 
