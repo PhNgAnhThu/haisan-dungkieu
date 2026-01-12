@@ -326,39 +326,40 @@
             if (e.key === 'Enter') renderDashboardPage();
         });
 
-       // 6. HÀM TẠO THẺ SẢN PHẨM (ĐÃ TÍCH HỢP NÉN ẢNH SIÊU TỐC)
+       // 6. HÀM TẠO THẺ SẢN PHẨM (ĐÃ CÓ BẢO HIỂM ẢNH LỖI)
         function createProductCard(p) {
             const price = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(p.price);
             
-            // 1. Kiểm tra ảnh có tồn tại không
-            let originalUrl = p.image || "https://placehold.co/300x200?text=No+Image";
-            
-            // 2. DÙNG DỊCH VỤ NÉN ẢNH (wsrv.nl)
-            // w=400: Thu nhỏ chiều ngang còn 400px (đủ nét cho thẻ nhỏ)
-            // output=webp: Chuyển sang định dạng WebP siêu nhẹ
-            // url=...: Link ảnh gốc của bà
-            let optimizedUrl = `https://wsrv.nl/?url=${encodeURIComponent(originalUrl)}&w=400&h=400&fit=cover&output=webp`;
+            // 1. Kiểm tra nếu không có ảnh thì lấy ảnh mẫu ngay
+            // Bà có thể thay link ảnh mẫu này bằng link Logo của bà nha
+            let imgSrc = p.image;
+            if (!imgSrc || imgSrc === "undefined" || imgSrc.trim() === "") {
+                imgSrc = "https://placehold.co/400x300/e0f2fe/1e3a8a?text=Dung+Kieu+Seafood"; 
+            }
 
             return `
-                <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition duration-300 overflow-hidden group border border-gray-100 flex flex-col">
-                    <a href="product-detail.html?id=${p.id}" class="h-48 md:h-64 overflow-hidden relative block">
-                        <!-- Dùng link ảnh đã nén (optimizedUrl) -->
-                        <img src="${optimizedUrl}" 
-                             loading="lazy" 
+                <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition duration-300 overflow-hidden group border border-gray-100 flex flex-col h-full">
+                    <a href="product-detail.html?id=${p.id}" class="h-48 md:h-56 overflow-hidden relative block bg-gray-50">
+                        <!-- THÊM CÁI ONERROR VÀO ĐÂY NÈ -->
+                        <img src="${imgSrc}" 
+                             onerror="this.src='https://placehold.co/400x300/e0f2fe/1e3a8a?text=Dang+Cap+Nhat'" 
                              class="w-full h-full object-cover group-hover:scale-105 transition duration-500" 
                              alt="${p.name}">
                     </a>
+                    
                     <div class="p-4 flex flex-col flex-grow text-center">
                         <a href="product-detail.html?id=${p.id}" class="font-serif-viet font-bold text-lg text-gray-800 hover:text-[#5bb6d0] transition line-clamp-1 mb-1">
                             ${p.name}
                         </a>
                         <p class="text-gray-500 text-sm mb-2">${p.weight || '1kg'}</p>
-                        <p class="text-black font-bold text-lg mb-3">${price}</p>
+                        <p class="text-red-600 font-bold text-xl mb-3">${price}</p>
                         
-                        <button onclick='window.Cart.addToCart(${JSON.stringify(p).replace(/"/g, '&quot;')})' 
-                           class="mx-auto w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-[#5bb6d0] hover:text-white hover:border-[#5bb6d0] transition">
-                            <i class="fas fa-shopping-bag"></i>
-                        </button>
+                        <div class="mt-auto">
+                            <button onclick='window.Cart.addToCart(${JSON.stringify(p).replace(/"/g, '&quot;')})' 
+                               class="mx-auto w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-[#5bb6d0] hover:text-white hover:border-[#5bb6d0] transition shadow-sm">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             `;
