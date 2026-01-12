@@ -326,16 +326,27 @@
             if (e.key === 'Enter') renderDashboardPage();
         });
 
-        // 6. HÀM TẠO THẺ SẢN PHẨM
+       // 6. HÀM TẠO THẺ SẢN PHẨM (ĐÃ TÍCH HỢP NÉN ẢNH SIÊU TỐC)
         function createProductCard(p) {
             const price = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(p.price);
-            // Fix lỗi ảnh
-            const imgUrl = p.image || "https://placehold.co/300x200?text=No+Image";
+            
+            // 1. Kiểm tra ảnh có tồn tại không
+            let originalUrl = p.image || "https://placehold.co/300x200?text=No+Image";
+            
+            // 2. DÙNG DỊCH VỤ NÉN ẢNH (wsrv.nl)
+            // w=400: Thu nhỏ chiều ngang còn 400px (đủ nét cho thẻ nhỏ)
+            // output=webp: Chuyển sang định dạng WebP siêu nhẹ
+            // url=...: Link ảnh gốc của bà
+            let optimizedUrl = `https://wsrv.nl/?url=${encodeURIComponent(originalUrl)}&w=400&h=400&fit=cover&output=webp`;
 
             return `
                 <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition duration-300 overflow-hidden group border border-gray-100 flex flex-col">
                     <a href="product-detail.html?id=${p.id}" class="h-48 md:h-64 overflow-hidden relative block">
-                        <img src="${imgUrl}" onerror="this.src='https://placehold.co/300x200?text=Error'" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="${p.name}">
+                        <!-- Dùng link ảnh đã nén (optimizedUrl) -->
+                        <img src="${optimizedUrl}" 
+                             loading="lazy" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500" 
+                             alt="${p.name}">
                     </a>
                     <div class="p-4 flex flex-col flex-grow text-center">
                         <a href="product-detail.html?id=${p.id}" class="font-serif-viet font-bold text-lg text-gray-800 hover:text-[#5bb6d0] transition line-clamp-1 mb-1">
